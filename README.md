@@ -1,4 +1,6 @@
 #Project Brief
+
+
 This project focuses on designing an occupancy-based climate control system. The main goal is to automate home temperature settings using real-time data to maximize energy efficiency and user comfort.
 
 Key Features
