@@ -10,7 +10,7 @@ class ThermostatController:
         return self.state
 
     def set_human_count(self, count):
-        self.human_count = count
+        self.human_count = count     
 
     def set_manual_mode(self, status):
         self.manual_mode = status
