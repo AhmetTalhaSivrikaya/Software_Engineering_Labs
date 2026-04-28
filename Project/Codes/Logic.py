@@ -1,6 +1,5 @@
 class ThermostatController:
     def __init__(self):
-        
         self.state = "Idle"
         self.is_connect = True
         self.human_count = 0
@@ -22,19 +21,14 @@ class ThermostatController:
         self.target_temp = temp
 
     def monitor_occupancy(self):
-        
         if self.human_count == 0:
             self.state = "Energy Saving"
 
     def auto_temp_adjustment(self):
-        
         if not self.manual_mode:
-            
             self.target_temp = 22 - (self.human_count * 0.5)
 
     def check_system_status(self):
-        
-        if not self.is_connect:
+        if not self.is_connect or self.human_count < 0:
             self.state = "Safe mode"
             self.target_temp = 21
-            
