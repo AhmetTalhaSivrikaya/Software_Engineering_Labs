@@ -46,6 +46,19 @@ class TestThermostat(unittest.TestCase):
         duration = end_time - start_time
         
         self.assertLess(duration, 3.0)
+
+    def test_manual_mode_overrides_automatic_adjustment(self):
+
+        controller = ThermostatController()
         
+        controller.set_manual_mode(True) 
+        controller.set_temp(25) 
+    
+        controller.set_human_count(10)
+        controller.auto_temp_adjustment()
+        
+        self.assertEqual(controller.target_temp, 25)
+        self.assertEqual(controller.get_current_state(), "Manual Mode")    
+
 if __name__ == '__main__':
     unittest.main()        
