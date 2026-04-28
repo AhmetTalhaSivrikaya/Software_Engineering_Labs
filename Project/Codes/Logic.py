@@ -37,3 +37,4 @@ class ThermostatController:
         if not self.is_connect:
             self.state = "Safe mode"
             self.target_temp = 21
+            

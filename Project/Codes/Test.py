@@ -65,5 +65,15 @@ class TestThermostat(unittest.TestCase):
         
         self.assertEqual(new_controller.get_current_state(), "Idle")
         self.assertTrue(new_controller.is_connect)
+
+    def test_invalid_human_count_triggers_safe_mode(self):
+        controller = ThermostatController()
+        
+        controller.set_human_count(-1)
+        controller.check_system_status()
+        
+        self.assertEqual(controller.get_current_state(), "Safe mode")
+        self.assertEqual(controller.target_temp, 21)
+        
 if __name__ == '__main__':
     unittest.main()        
