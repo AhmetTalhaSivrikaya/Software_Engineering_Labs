@@ -1,15 +1,19 @@
 class ThermostatController:
     def __init__(self):
-        self._state = "Idle"
-        self._human_count = 0
+        self.state = "Idle"
+        self.human_count = 0
+        self.target_temp = 22  
 
     def get_current_state(self):
-        return self._state
+        return self.state
 
     def set_human_count(self, count):
-        self._human_count = count
+        self.human_count = count
 
     def monitor_occupancy(self):
+        if self.human_count == 0:
+            self.state = "Energy Saving"
+
+    def auto_temp_adjustment(self):
         
-        if self._human_count == 0:
-            self._state = "Energy Saving"
+        self.target_temp = 22 - (self.human_count * 0.5)
