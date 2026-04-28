@@ -3,7 +3,8 @@ class ThermostatController:
         self.state = "Idle"
         self.human_count = 0
         self.target_temp = 22
-        self.is_connect = True  
+        self.is_connect = True
+        self.manual_mode = False
 
     def get_current_state(self):
         return self.state
@@ -11,30 +12,25 @@ class ThermostatController:
     def set_human_count(self, count):
         self.human_count = count
 
+    def set_manual_mode(self, status):
+        self.manual_mode = status
+        if status:
+            self.state = "Manual Mode"
+
+    def set_temp(self, temp):
+        self.target_temp = temp
+
     def monitor_occupancy(self):
+        # Performans testi için 3 saniyenin altında kalmalı
         if self.human_count == 0:
             self.state = "Energy Saving"
 
     def auto_temp_adjustment(self):
-       
-        self.target_temp = 22 - (self.human_count * 0.5)
+        # Eğer manuel mod aktifse otomatik ayar yapma
+        if not self.manual_mode:
+            self.target_temp = 22 - (self.human_count * 0.5)
 
     def check_system_status(self):
-     
         if not self.is_connect:
             self.state = "Safe mode"
             self.target_temp = 21
-    def monitor_occupancy(self):
-      
-        if self.is_connect:
-            if self.human_count == 0:
-                self.energy_save()
-            else:
-                self.auto_temp_adjustment()
-        else:
-            self.check_system_status()
-
-    def energy_save(self):
-        self.state = "Energy Saving"
-        
-        self.target_temp = 0 
