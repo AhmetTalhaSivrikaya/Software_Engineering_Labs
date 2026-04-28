@@ -1,4 +1,5 @@
 import unittest
+import time
 from Logic import ThermostatController
 
 class TestThermostat(unittest.TestCase):
@@ -35,5 +36,16 @@ class TestThermostat(unittest.TestCase):
         self.assertEqual(controller.get_current_state(), "Safe mode")
         self.assertEqual(controller.target_temp, 21)
 
+    def test_processing_performance(self):
+        controller = ThermostatController()
+        
+        start_time = time.time()
+        controller.monitor_occupancy()
+        end_time = time.time()
+        
+        duration = end_time - start_time
+        
+        self.assertLess(duration, 3.0)
+        
 if __name__ == '__main__':
     unittest.main()        
