@@ -10,6 +10,6 @@ class ThermostatController:
         self._human_count = count
 
     def monitor_occupancy(self):
-        # TDD "Green" aşaması: Testin beklediği durumu sağlayan minimum mantık
+        
         if self._human_count == 0:
             self._state = "Energy Saving"
