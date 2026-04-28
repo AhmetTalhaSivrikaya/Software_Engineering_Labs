@@ -2,7 +2,8 @@ class ThermostatController:
     def __init__(self):
         self.state = "Idle"
         self.human_count = 0
-        self.target_temp = 22  
+        self.target_temp = 22
+        self.is_connect = True  
 
     def get_current_state(self):
         return self.state
@@ -15,5 +16,11 @@ class ThermostatController:
             self.state = "Energy Saving"
 
     def auto_temp_adjustment(self):
-        
+       
         self.target_temp = 22 - (self.human_count * 0.5)
+
+    def check_system_status(self):
+     
+        if not self.is_connect:
+            self.state = "Safe mode"
+            self.target_temp = 21
