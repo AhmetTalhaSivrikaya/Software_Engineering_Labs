@@ -14,22 +14,26 @@ class TestThermostat(unittest.TestCase):
         self.assertEqual(controller.get_current_state(), "Energy Saving")    
 
     def test_target_temp_adjusts_with_occupancy(self):
-        # Arrange
         controller = ThermostatController()
         
-        # Act: Evde 1 kişi varken 22 derece ideal olsun
         controller.set_human_count(1)
         controller.auto_temp_adjustment()
         temp_with_one = controller.target_temp
         
-        # Evde 5 kişi varken (insan ısısı arttığı için) hedef sıcaklık düşmeli
         controller.set_human_count(5)
         controller.auto_temp_adjustment()
         temp_with_five = controller.target_temp
         
-        # Assert: 5 kişi varken hedef sıcaklık daha düşük olmalı
         self.assertTrue(temp_with_five < temp_with_one)
-
+    
+    def test_safe_mode_on_sensor_disconnection(self):
+        controller = ThermostatController()
+        
+        controller.is_connect = False 
+        controller.check_system_status() 
+        
+        self.assertEqual(controller.get_current_state(), "Safe mode")
+        self.assertEqual(controller.target_temp, 21)
 
 if __name__ == '__main__':
     unittest.main()        
