@@ -24,3 +24,17 @@ class ThermostatController:
         if not self.is_connect:
             self.state = "Safe mode"
             self.target_temp = 21
+    def monitor_occupancy(self):
+      
+        if self.is_connect:
+            if self.human_count == 0:
+                self.energy_save()
+            else:
+                self.auto_temp_adjustment()
+        else:
+            self.check_system_status()
+
+    def energy_save(self):
+        self.state = "Energy Saving"
+        
+        self.target_temp = 0 
