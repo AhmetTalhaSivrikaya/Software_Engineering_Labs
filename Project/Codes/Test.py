@@ -60,5 +60,10 @@ class TestThermostat(unittest.TestCase):
         self.assertEqual(controller.target_temp, 25)
         self.assertEqual(controller.get_current_state(), "Manual Mode")    
 
+    def test_system_recovery_defaults(self):
+        new_controller = ThermostatController()
+        
+        self.assertEqual(new_controller.get_current_state(), "Idle")
+        self.assertTrue(new_controller.is_connect)
 if __name__ == '__main__':
     unittest.main()        
